@@ -1,4 +1,4 @@
 # rabbit-php-utils
 Send RMQ messages quickly
 
-`php send.php -p "{\"payload\":\"here\"}\" -r \"routing-key\" [-e \"exchange\"]`
+`php send.php "{\"payload\":\"here\"}\" "routing-key" "exchange"`
