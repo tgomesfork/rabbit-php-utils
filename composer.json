@@ -1,5 +1,13 @@
 {
+    "name": "gotchapt/rabbit-php-utils",
+    "description": "Easy command line script for sending rmq message",
+    "autoload": {
+       "psr-4": {
+           "gotchapt\\RabbitPhpUtils\\": "src/"
+       }
+   },
     "require": {
-        "php-amqplib/php-amqplib": ">=2.6.1"
+        "php-amqplib/php-amqplib": ">=2.6.1",
+        "splitbrain/php-cli": "^1.1"
     }
 }

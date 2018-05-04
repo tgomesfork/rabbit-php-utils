@@ -1,35 +1,41 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
+use gotchapt\RabbitPhpUtils\Message;
+use gotchapt\RabbitPhpUtils\MessageSender;
+use splitbrain\phpcli\CLI;
+use splitbrain\phpcli\Options;
 
-$host = 'localhost';
-$port = 5672;
-$user = 'lafourchette';
-$password = 'lafourchette';
-$vhost = '/lafourchette';
-$exchange = 'lf.exchange.myfourchette';
+class Send extends CLI
+{
+    const INDEX_PAYLOAD = 0;
+    const INDEX_ROUTING_KEY = 1;
+    const INDEX_EXCHANGE = 2;
 
-$args = getopt("p:r:e");
-$exchange = isset($args['e']) ? $args['e'] : $exchange;
+    protected function setup(Options $options)
+    {
+        $options->setHelp('Simple command to send a message with a given payload and routing key');
+        $options->registerArgument('payload', 'Message payload');
+        $options->registerArgument('routing-key', 'Message routing key');
+        $options->registerArgument('exchange', 'Exchange where message is sent to', false);
+    }
 
-if (!isset($args['p']) || !isset($args['r'])) {
-    echo "Missing arguments. Command should be run like:\nphp send.php -p \"{}\" -r \"routing-key\" [-e \"exchange\"]\n";
-    exit(1);
+    protected function main(Options $options)
+    {
+        $args = $options->getArgs();
+        $message = new Message($args[self::INDEX_PAYLOAD]);
+
+        $messageSender = new MessageSender($message);
+
+        $messageSender->send(
+            $message,
+            $args[self::INDEX_ROUTING_KEY],
+            isset($args[self::INDEX_EXCHANGE]) ? $args[self::INDEX_EXCHANGE] : false
+        );
+    }
 }
 
-$payload = $args['p'];
-$routingKey = $args['r'];
-
-$connection = new AMQPStreamConnection('localhost', 5672, $user, $password, $vhost);
-$channel = $connection->channel();
-
-$msg = new AMQPMessage($payload);
-$res = $channel->basic_publish($msg, $exchange, $routingKey);
-
-echo " [x] Sent message with key $routingKey to $exchange\n";
-
-$channel->close();
-$connection->close();
+// execute it
+$cli = new Send();
+$cli->run();
