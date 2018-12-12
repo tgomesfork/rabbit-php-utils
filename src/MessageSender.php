@@ -4,14 +4,10 @@ namespace gotchapt\RabbitPhpUtils;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 
 class MessageSender
 {
-    /**
-     * @var Message
-     */
-    private $message;
-
     /**
      * @var Config
      */
@@ -39,6 +35,9 @@ class MessageSender
         $exchange = $exchange ?: $this->config->getExchange();
         $channel = $this->connection->channel();
         $msg = new AMQPMessage($message->getPayload());
+        if (!empty($message->getHeaders())) {
+            $msg->set('application_headers', new AMQPTable($message->getHeaders()));
+        }
         $channel->basic_publish($msg, $exchange, $routingKey);
 
         echo " [x] Sent message with key $routingKey to $exchange\n";

@@ -1,0 +1,9 @@
+{
+	"timestamp_in_ms": 123,
+	"x-request-initiator": {
+		"user": {
+			"type": "test",
+			"id": 42
+		}
+	}
+}

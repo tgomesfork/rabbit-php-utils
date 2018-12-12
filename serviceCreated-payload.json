@@ -1,0 +1,80 @@
+{
+    "type": "inventory-service.service.serviceCreated",
+    "payload": {
+        "entity": {
+            "type": "service",
+            "current": {
+                "expTimeRequestBookings": 0,
+                "expTimeGroup": 0,
+                "expTime": 0,
+                "onlinePacing": {
+                    "all": {
+                        "780": 9
+                    },
+                    "mon": {
+                        "810": 8
+                    },
+                    "default": 10
+                },
+                "pacing": {
+                    "all": {
+                        "780": 19
+                    },
+                    "mon": {
+                        "810": 18
+                    },
+                    "default": 20
+                },
+                "onlineCapacity": {
+                    "default": 30
+                },
+                "capacity": {
+                    "default": 40
+                },
+                "groups": null,
+                "coversRange": [
+                    1,
+                    10
+                ],
+                "averageMealDuration": {
+                    "defaults": {
+                        "value": 60
+                    }
+                },
+                "minBookingTime": 840,
+                "lastBookingTime": {
+                    "mon": 960,
+                    "default": 900
+                },
+                "endTime": {
+                    "mon": 960,
+                    "default": 900
+                },
+                "startTime": {
+                    "mon": 780,
+                    "default": 720
+                },
+                "weekdays": [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                ],
+                "dateRange": [
+                    "2017-09-01",
+                    "2017-09-10"
+                ],
+                "isPublished": true,
+                "isBookableOnline": true,
+                "name": "Lunch",
+                "restaurantUuid": "8a6c6ca7-c544-422a-b93f-52aa563e60bb",
+                "rootUuid": null,
+                "parentUuid": null,
+                "tablePlanUuid": null
+            }
+        }
+    }
+}
