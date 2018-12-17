@@ -1,4 +1,7 @@
 # rabbit-php-utils
 Send RMQ messages quickly
 
-`php send.php "{\"payload\":\"here\"}\" "routing-key" "exchange"`
+Create json files on root
+
+`php send.php --file-payload="test-payload.json" --file-headers="test-headers.json" "test-service.test.testCreated" "exchange.test-service"
+`
